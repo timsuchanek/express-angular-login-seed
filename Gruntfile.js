@@ -1,4 +1,4 @@
-// Generated on 2013-09-01 using generator-express-angular 0.2.7
+// Generated on 2013-09-03 using generator-express-angular 0.2.7
 'use strict';
 var LIVERELOAD_PORT = 35729;
 var lrSnippet = require('connect-livereload')({ port: LIVERELOAD_PORT });
