@@ -1,6 +1,7 @@
 var express = require("express");
- 
+
 var app = express();
+var privateArea = require('routes/privateArea');
 app.use(express.logger());
 
 // Configuration
@@ -18,6 +19,8 @@ app.configure(function(){
 app.get('/', function(request, response) {
   response.render('index.html')
 });
+
+app.get('/privateArea/', privateArea.index);
 
 var port = process.env.PORT || 5000;
 app.listen(port, function() {
