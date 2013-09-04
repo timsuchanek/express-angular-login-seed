@@ -1,18 +1,13 @@
 'use strict';
 
 angular.module('generatorLoginApp', [])
-  .config(function ($routeProvider, $locationProvider) {
+  .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
-      .when('/privateArea', {
-        templateUrl: 'views/privateArea.html',
-        controller: 'PrivateareaCtrl'
-      })
       .otherwise({
         redirectTo: '/'
       });
-    $locationProvider.html5Mode(true);
   });
