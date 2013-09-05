@@ -4,7 +4,7 @@ var express = require('express'),
     path = require('path'),
     passport = require('passport');
 
-module.exports = function (app, config) {
+module.exports = function (app, config, pass) {
   app.set('showStackError', true);
   app.set('views', path.resolve(config.root, '/views'));
   app.set('view engine', 'jade');
@@ -15,6 +15,12 @@ module.exports = function (app, config) {
     app.use(express.bodyParser());
     app.use(express.methodOverride());
 
+    // marker for `grunt-express` to inject static folder/contents
+    app.use(function staticsPlaceholder(req, res, next) {
+      return next();
+    });
+
+    // storing sessions in mongo
     app.use(express.session({
       secret: config.SESSION_SECRET,
       store: new mongoStore({
@@ -23,16 +29,23 @@ module.exports = function (app, config) {
       })
     }));
 
+    // Add csrf support
+   // app.use(express.csrf({value: pass.csrf}));
+   // app.use(function(req, res, next) {
+  //     res.cookie('XSRF-TOKEN', req.session._csrf);
+  //     next();
+  //  });
+
     app.use(flash());
     app.use(passport.initialize());
     app.use(passport.session());
-    app.use(express.static(__dirname + '/../../public'));
+    app.use(express.static(__dirname + '/../../app'));
     app.use(app.router);
-    app.use(express.errorHandler({dumpExceptions: true, showStack: true}));
-
   });
 
   app.configure('development', function() {
+    app.use(express.errorHandler({dumpExceptions: true, showStack: true}));
+    app.use(express.logger('dev'));
     app.locals.pretty = true;
   });
 
