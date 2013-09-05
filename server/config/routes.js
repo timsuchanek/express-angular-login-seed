@@ -10,9 +10,10 @@ module.exports = function (app, config, pass) {
   });
 
   // User pages
-  app.get('/account', pass.ensureAuthenticated, user.account);
-  app.get('/login', user.getlogin);
   app.post('/login', user.postlogin);
-  app.get('/admin', pass.ensureAuthenticated, pass.ensureAdmin(), user.admin);
   app.get('/logout', user.logout);
+
+  app.get('/user', pass.ensureAuthenticated, function(req, res, next) {
+    return res.json(req.session.user);
+  });
 }
