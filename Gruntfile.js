@@ -105,6 +105,33 @@ module.exports = function (grunt) {
         }
       }
     },
+    express: {
+      options: {
+        port: 9000,
+        hostname: '*'
+      },
+      livereload: {
+        options: {
+          server: path.resolve('./server'),
+          livereload: true,
+          serverreload: true,
+          bases: [path.resolve('./.tmp'), path.resolve(__dirname, yeomanConfig.app)],
+          showStack: true
+        }
+      },
+      test: {
+        options: {
+          server: path.resolve('./server'),
+          bases: [path.resolve('./.tmp'), path.resolve(__dirname, 'test')]
+        }
+      },
+      dist: {
+        options: {
+          server: path.resolve('./server'),
+          bases: path.resolve(__dirname, yeomanConfig.dist)
+        }
+      }
+    },
     open: {
       server: {
         url: 'http://localhost:<%= connect.options.port %>'
