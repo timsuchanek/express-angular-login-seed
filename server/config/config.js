@@ -6,7 +6,7 @@ module.exports = {
     root: require('path').normalize(__dirname + '/..'),
     db: process.env.MONGOLAB_URI ||
         process.env.MONGOHQ_URL ||
-        'mongodb://localhost/express-angular-seed',
+        'mongodb://localhost/express-angular-login-seed',
     BCRYPT_WORK_FACTOR: 10,
     SESSION_SECRET: 'kJYcwr3as9zb4v6X2WjKKzbc'
   }
