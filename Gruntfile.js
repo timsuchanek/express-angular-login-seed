@@ -1,7 +1,7 @@
 // Generated on 2013-09-04 using generator-angular 0.4.0
 'use strict';
 var path = require('path');
-var LIVERELOAD_PORT = 35729;
+var LIVERELOAD_PORT = 35728;
 
 // # Globbing
 // for performance reasons we're only matching one level down:
@@ -12,6 +12,11 @@ var LIVERELOAD_PORT = 35729;
 module.exports = function(grunt) {
   require('load-grunt-tasks')(grunt);
   require('time-grunt')(grunt);
+  var User = require('./server/models/users'),
+      mongoose = require('mongoose'),
+      env = process.env.NODE_ENV || 'development',
+      config = require('./server/config/config')[env];
+
 
   // configurable paths
   var yeomanConfig = {
@@ -63,43 +68,6 @@ module.exports = function(grunt) {
           src: '{,*/}*.css',
           dest: '.tmp/styles/'
         }]
-      }
-    },
-    connect: {
-      options: {
-        port: 9000,
-        // Change this to '0.0.0.0' to access the server from outside.
-        hostname: 'localhost'
-      },
-      livereload: {
-        options: {
-          middleware: function(connect) {
-            return [
-              lrSnippet,
-              mountFolder(connect, '.tmp'),
-              mountFolder(connect, yeomanConfig.app)
-            ];
-          }
-        }
-      },
-      test: {
-        options: {
-          middleware: function(connect) {
-            return [
-              mountFolder(connect, '.tmp'),
-              mountFolder(connect, 'test')
-            ];
-          }
-        }
-      },
-      dist: {
-        options: {
-          middleware: function(connect) {
-            return [
-              mountFolder(connect, yeomanConfig.dist)
-            ];
-          }
-        }
       }
     },
     express: {
@@ -334,6 +302,10 @@ module.exports = function(grunt) {
         'imagemin',
         'svgmin',
         'htmlmin'
+      ],
+      livereload: [
+        'express:livereload',
+        'watch'
       ]
     },
     karma: {
@@ -370,7 +342,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('server', function(target) {
     if (target === 'dist') {
-      return grunt.task.run(['build', 'open', 'connect:dist:keepalive']);
+      return grunt.task.run(['build', 'open', 'express:dist:keepalive']);
     }
 
     grunt.task.run([
@@ -378,8 +350,10 @@ module.exports = function(grunt) {
       'concurrent:server',
       'autoprefixer',
       'express:livereload',
-      'open',
-      'watch'
+      'watch',
+
+      // 'concurrent:livereload',
+      'open'
     ]);
   });
 
@@ -411,4 +385,51 @@ module.exports = function(grunt) {
     'test',
     'build'
   ]);
+
+  grunt.registerTask('dbseed', 'seed the database', function() {
+    grunt.task.run('adduser:admin:admin@example.com:secret:true');
+    grunt.task.run('adduser:bob:bob@example.com:secret:false');
+  });
+
+  grunt.registerTask('adduser', 'add a user to the database', function(usr, emailaddress, pass, adm) {
+    // convert adm string to bool
+    adm = (adm === "true");
+
+
+    var conn = mongoose.connect(config.db);
+    // save call is async, put grunt into async mode to work
+    var done = this.async();
+
+    var newUser = new User({ username: usr
+            , email: emailaddress
+            , password: pass
+            , admin: adm });
+
+    newUser.save(function(err) {
+      if(err) {
+        console.log('Error: ' + err);
+        done(false);
+      } else {
+        console.log('saved user: ' + newUser.username);
+        done();
+      }
+      conn.connection.close();
+    });
+
+  });
+
+  grunt.registerTask('dbdrop', 'drop the database', function() {
+    // async mode
+    var done = this.async();
+    var conn = mongoose.connect(config.db);
+    conn.connection.db.dropDatabase(function(err) {
+      if(err) {
+        console.log('Error: ' + err);
+        done(false);
+      } else {
+        console.log('Successfully dropped db');
+        done();
+      }
+    });
+  });
 };
