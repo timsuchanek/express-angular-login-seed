@@ -1,5 +1,6 @@
 // Generated on 2013-09-04 using generator-angular 0.4.0
 'use strict';
+var path = require('path');
 var LIVERELOAD_PORT = 35729;
 
 // # Globbing
@@ -8,7 +9,7 @@ var LIVERELOAD_PORT = 35729;
 // use this if you want to recursively match all subfolders:
 // 'test/spec/**/*.js'
 
-module.exports = function (grunt) {
+module.exports = function(grunt) {
   require('load-grunt-tasks')(grunt);
   require('time-grunt')(grunt);
 
@@ -72,7 +73,7 @@ module.exports = function (grunt) {
       },
       livereload: {
         options: {
-          middleware: function (connect) {
+          middleware: function(connect) {
             return [
               lrSnippet,
               mountFolder(connect, '.tmp'),
@@ -83,7 +84,7 @@ module.exports = function (grunt) {
       },
       test: {
         options: {
-          middleware: function (connect) {
+          middleware: function(connect) {
             return [
               mountFolder(connect, '.tmp'),
               mountFolder(connect, 'test')
@@ -93,7 +94,7 @@ module.exports = function (grunt) {
       },
       dist: {
         options: {
-          middleware: function (connect) {
+          middleware: function(connect) {
             return [
               mountFolder(connect, yeomanConfig.dist)
             ];
@@ -130,7 +131,7 @@ module.exports = function (grunt) {
     },
     open: {
       server: {
-        url: 'http://localhost:<%= connect.options.port %>'
+        url: 'http://localhost:<%= express.options.port %>'
       }
     },
     clean: {
@@ -367,7 +368,7 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.registerTask('server', function (target) {
+  grunt.registerTask('server', function(target) {
     if (target === 'dist') {
       return grunt.task.run(['build', 'open', 'connect:dist:keepalive']);
     }
@@ -376,7 +377,7 @@ module.exports = function (grunt) {
       'clean:server',
       'concurrent:server',
       'autoprefixer',
-      'connect:livereload',
+      'express:livereload',
       'open',
       'watch'
     ]);
@@ -386,7 +387,7 @@ module.exports = function (grunt) {
     'clean:server',
     'concurrent:test',
     'autoprefixer',
-    'connect:test',
+    'express:test',
     'karma'
   ]);
 
