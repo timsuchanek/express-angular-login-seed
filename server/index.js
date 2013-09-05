@@ -12,7 +12,7 @@ var express = require('express'),
 mongoose.connect(config.db);
 
 // Configure Express
-configExpress(app, config);
+configExpress(app, config, configPassport);
 
 // Configure Routes
 configRoutes(app, config, configPassport);
