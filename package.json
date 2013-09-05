@@ -1,7 +1,14 @@
 {
   "name": "express-angular-login-seed",
   "version": "0.0.0",
-  "dependencies": {},
+  "dependencies": {
+    "passport-local": "~0.1.6",
+    "passport": "~0.1.17",
+    "express": "~3.3.8",
+    "bcrypt": "~0.7.6",
+    "connect-mongo": "~0.3.3",
+    "connect-flash": "~0.1.1"
+  },
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-copy": "~0.4.1",
@@ -38,7 +45,8 @@
     "karma-coffee-preprocessor": "~0.1.0",
     "karma-phantomjs-launcher": "~0.1.0",
     "karma": "~0.10.2",
-    "karma-ng-html2js-preprocessor": "~0.1.0"
+    "karma-ng-html2js-preprocessor": "~0.1.0",
+    "grunt-express": "~1.0.0-beta2"
   },
   "engines": {
     "node": ">=0.8.0"
