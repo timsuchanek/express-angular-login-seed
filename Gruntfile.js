@@ -30,6 +30,11 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     yeoman: yeomanConfig,
+    exec: {
+      mongo: {
+        cmd: 'mongod'
+      }
+    },
     watch: {
       coffee: {
         files: ['<%= yeoman.app %>/scripts/{,*/}*.coffee'],
@@ -346,6 +351,7 @@ module.exports = function(grunt) {
     }
 
     grunt.task.run([
+      'exec:mongo',
       'clean:server',
       'concurrent:server',
       'autoprefixer',
