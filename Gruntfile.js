@@ -406,13 +406,15 @@ module.exports = function(grunt) {
     // save call is async, put grunt into async mode to work
     var done = this.async();
 
-    var newUser = new User({ username: usr
-            , email: emailaddress
-            , password: pass
-            , admin: adm });
+    var newUser = new User({
+      username: usr,
+      email: emailaddress,
+      password: pass,
+      admin: adm
+    });
 
     newUser.save(function(err) {
-      if(err) {
+      if (err) {
         console.log('Error: ' + err);
         done(false);
       } else {
@@ -429,7 +431,7 @@ module.exports = function(grunt) {
     var done = this.async();
     var conn = mongoose.connect(config.db);
     conn.connection.db.dropDatabase(function(err) {
-      if(err) {
+      if (err) {
         console.log('Error: ' + err);
         done(false);
       } else {
