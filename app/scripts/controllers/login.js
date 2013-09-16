@@ -14,6 +14,7 @@ angular.module('generatorLoginApp')
     ];
 
     $scope.login = function() {
+      console.log(this.credentials);
       AuthenticationService.login(this.credentials).success(function() {
         $location.path('/'); // TODO: route back to where user was coming from (before login page)
       });

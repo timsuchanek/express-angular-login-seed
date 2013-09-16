@@ -351,7 +351,7 @@ module.exports = function(grunt) {
     }
 
     grunt.task.run([
-      'exec:mongo',
+      
       'clean:server',
       'concurrent:server',
       'autoprefixer',
@@ -399,7 +399,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('adduser', 'add a user to the database', function(usr, emailaddress, pass, adm) {
     // convert adm string to bool
-    adm = (adm === "true");
+    adm = (adm === 'true');
 
 
     var conn = mongoose.connect(config.db);
