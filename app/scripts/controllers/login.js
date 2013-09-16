@@ -2,19 +2,10 @@
 
 angular.module('generatorLoginApp')
   .controller('LoginCtrl', function ($scope, $location, AuthenticationService) {
-    $scope.sampleUsers = [
-      {
-        username: 'admin',
-        password: 'secret'
-      },
-      {
-        username: 'bob',
-        password: 'secret'
-      }
-    ];
+    // This variable is used to toggle the login and registration form
+    $scope.toggle = 1;
 
     $scope.login = function() {
-      console.log(this.credentials);
       AuthenticationService.login(this.credentials).success(function() {
         $location.path('/'); // TODO: route back to where user was coming from (before login page)
       });

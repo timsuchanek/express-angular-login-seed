@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('generatorLoginApp', ['ngResource'])
+angular.module('generatorLoginApp', ['ui.router', 'ui.bootstrap'])
   .service('$flash', function($rootScope) {
     this.show = function(message) {
       $rootScope.flash = message;
@@ -101,21 +101,36 @@ angular.module('generatorLoginApp', ['ngResource'])
       }
     });
   })
-  .config(function($routeProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: 'views/main.html',
+  .config(function ($stateProvider,  $urlRouterProvider) {      
+    $stateProvider
+    .state('navbar', {
+        abstract: true,  
+        templateUrl: 'views/navbar.html',
         controller: 'MainCtrl'
       })
-      .when('/login', {
+      .state('navbar.home', {
+        url: '/', 
+        templateUrl: 'views/main.html',
+        controller: 'NavBarCtrl'
+      })      
+      .state('login', {
+        url: '/login',
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl'
       })
-      .when('/login', {
-        templateUrl: 'views/login.html',
-        controller: 'LoginCtrl'
-      })
-      .otherwise({
-        redirectTo: '/login'
+      .state('navbar.profile', {
+        url: '/profile',
+        templateUrl: 'views/profile.html',
+        controller: 'ProfileCtrl'
       });
-  });
+  }).run(
+      [        '$rootScope', '$state', '$stateParams',
+      function ($rootScope,   $state,   $stateParams) {
+
+        // It's very handy to add references to $state and $stateParams to the $rootScope
+        // so that you can access them from any scope within your applications.For example,
+        // <li ng-class="{ active: $state.includes('contacts.list') }"> will set the <li>
+        // to active whenever 'contacts.list' or one of its decendents is active.
+        $rootScope.$state = $state;
+        $rootScope.$stateParams = $stateParams;
+      }]);;
