@@ -29,9 +29,9 @@ module.exports = function (app, config, pass) {
       })
     }));
 
-    // Add csrf support
-   // app.use(express.csrf({value: pass.csrf}));
-   // app.use(function(req, res, next) {
+  // Add csrf support
+  // app.use(express.csrf({value: pass.csrf}));
+  // app.use(function(req, res, next) {
   //     res.cookie('XSRF-TOKEN', req.session._csrf);
   //     next();
   //  });

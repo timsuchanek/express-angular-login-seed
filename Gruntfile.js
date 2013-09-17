@@ -30,11 +30,6 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     yeoman: yeomanConfig,
-    exec: {
-      mongo: {
-        cmd: 'mongod'
-      }
-    },
     watch: {
       coffee: {
         files: ['<%= yeoman.app %>/scripts/{,*/}*.coffee'],
@@ -293,7 +288,8 @@ module.exports = function(grunt) {
       server: [
         'coffee:dist',
         'compass:server',
-        'copy:styles'
+        'copy:styles',
+        'shell:mongod'
       ],
       test: [
         'coffee',
@@ -351,14 +347,11 @@ module.exports = function(grunt) {
     }
 
     grunt.task.run([
-      'exec:mongo',
       'clean:server',
       'concurrent:server',
       'autoprefixer',
       'express:livereload',
       'watch',
-
-      // 'concurrent:livereload',
       'open'
     ]);
   });
@@ -400,7 +393,6 @@ module.exports = function(grunt) {
   grunt.registerTask('adduser', 'add a user to the database', function(usr, emailaddress, pass, adm) {
     // convert adm string to bool
     adm = (adm === "true");
-
 
     var conn = mongoose.connect(config.db);
     // save call is async, put grunt into async mode to work

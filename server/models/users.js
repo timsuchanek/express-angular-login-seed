@@ -23,7 +23,7 @@ var UserSchema = new mongoose.Schema({
   admin: {
     type: Boolean,
     required: true
-  },
+  }
 });
 
 // Bcrypt middleware
