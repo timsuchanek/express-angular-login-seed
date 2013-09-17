@@ -1,18 +1,18 @@
 'use strict';
 
 angular.module('generatorLoginApp', ['ui.router', 'ui.bootstrap'])
-  .config(function ($stateProvider,  $urlRouterProvider) {      
+  .config(function($stateProvider, $urlRouterProvider) {
     $stateProvider
-    .state('navbar', {
-        abstract: true,  
+      .state('navbar', {
+        abstract: true,
         templateUrl: 'views/navbar.html',
         controller: 'MainCtrl'
       })
       .state('navbar.home', {
-        url: '/', 
+        url: '/',
         templateUrl: 'views/main.html',
         controller: 'NavBarCtrl'
-      })      
+      })
       .state('login', {
         url: '/login',
         templateUrl: 'views/login.html',
@@ -48,7 +48,7 @@ angular.module('generatorLoginApp', ['ui.router', 'ui.bootstrap'])
     $httpProvider.responseInterceptors.push(logsOutUserOn401);
   })
   .run(function($rootScope, $location, AuthenticationService) {
-    $rootScope.logout = function () {
+    $rootScope.logout = function() {
       var logout = AuthenticationService.logout();
       logout.then(function() {
         $location.path('/login');
@@ -66,8 +66,8 @@ angular.module('generatorLoginApp', ['ui.router', 'ui.bootstrap'])
     });
   })
   .run(
-      [        '$rootScope', '$state', '$stateParams',
-      function ($rootScope,   $state,   $stateParams) {
+    ['$rootScope', '$state', '$stateParams',
+      function($rootScope, $state, $stateParams) {
 
         // It's very handy to add references to $state and $stateParams to the $rootScope
         // so that you can access them from any scope within your applications.For example,
@@ -75,4 +75,5 @@ angular.module('generatorLoginApp', ['ui.router', 'ui.bootstrap'])
         // to active whenever 'contacts.list' or one of its decendents is active.
         $rootScope.$state = $state;
         $rootScope.$stateParams = $stateParams;
-      }]);;
+      }
+    ]);;
