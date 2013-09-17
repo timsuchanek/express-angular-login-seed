@@ -1,64 +1,28 @@
 'use strict';
 
 angular.module('generatorLoginApp', ['ui.router', 'ui.bootstrap'])
-  .service('$flash', function($rootScope) {
-    this.show = function(message) {
-      $rootScope.flash = message;
-    };
-
-    this.clear = function() {
-      $rootScope.flash = '';
-    };
-  })
-  .factory('$session', function() {
-    return {
-      get: function(key) {
-        return sessionStorage.getItem(key);
-      },
-      set: function(key, value) {
-        return sessionStorage.setItem(key, value);
-      },
-      unset: function(key) {
-        return sessionStorage.removeItem(key);
-      },
-      clear: function() {
-        return sessionStorage.clear();
-      }
-    };
-  })
-  .service('AuthenticationService', function($http, $timeout, $q, $session, $flash) {
-    this.login = function(credentials) {
-      var login = $http.post('/login', credentials);
-      login.success(function(user) {
-        $session.set('user', user);
-        $flash.clear();
-      }).error(function(error) {
-        error = error.error ? error.error : error;
-        $flash.show(error.message || error);
+  .config(function ($stateProvider,  $urlRouterProvider) {      
+    $stateProvider
+    .state('navbar', {
+        abstract: true,  
+        templateUrl: 'views/navbar.html',
+        controller: 'MainCtrl'
+      })
+      .state('navbar.home', {
+        url: '/', 
+        templateUrl: 'views/main.html',
+        controller: 'NavBarCtrl'
+      })      
+      .state('login', {
+        url: '/login',
+        templateUrl: 'views/login.html',
+        controller: 'LoginCtrl'
+      })
+      .state('navbar.profile', {
+        url: '/profile',
+        templateUrl: 'views/profile.html',
+        controller: 'ProfileCtrl'
       });
-      return login;
-    };
-
-    this.logout = function() {
-      var logout = $http.get('/logout');
-      logout.success(function() {
-        $session.clear();
-      });
-      return logout;
-    };
-
-    this.user = function() {
-      var user = $session.get('user');
-      if (user) {
-        var deferred = $q.defer();
-        $timeout(function() {
-          deferred.resolve(user);
-        }, 0);
-        return deferred.promise;
-      } else {
-        return $http.get('/user');
-      }
-    };
   })
   .config(function($httpProvider) {
     var logsOutUserOn401 = function($location, $q, $session) {
@@ -101,29 +65,7 @@ angular.module('generatorLoginApp', ['ui.router', 'ui.bootstrap'])
       }
     });
   })
-  .config(function ($stateProvider,  $urlRouterProvider) {      
-    $stateProvider
-    .state('navbar', {
-        abstract: true,  
-        templateUrl: 'views/navbar.html',
-        controller: 'MainCtrl'
-      })
-      .state('navbar.home', {
-        url: '/', 
-        templateUrl: 'views/main.html',
-        controller: 'NavBarCtrl'
-      })      
-      .state('login', {
-        url: '/login',
-        templateUrl: 'views/login.html',
-        controller: 'LoginCtrl'
-      })
-      .state('navbar.profile', {
-        url: '/profile',
-        templateUrl: 'views/profile.html',
-        controller: 'ProfileCtrl'
-      });
-  }).run(
+  .run(
       [        '$rootScope', '$state', '$stateParams',
       function ($rootScope,   $state,   $stateParams) {
 
