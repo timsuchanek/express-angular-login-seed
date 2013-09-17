@@ -1,27 +1,23 @@
+<div class="container">
 <div id="flash" class="alert-box alert" ng-show="flash">{{ flash }}</div>
 
-<div class="hero-unit">
-  Use one of the test users:
-  <ul>
-    <li ng-repeat="user in sampleUsers">
-      <div>Username: {{user.username}}</div>
-      <div>Password: {{user.password}}</div>
-    </li>
-  </ul>
-
-  <form ng-submit="login()">
-    <div class="control-group">
-      <label for="username" class="control-label" >Username:</label>
-      <div class="controls"><input id="username" type="text" ng-model="credentials.username"></div>
-    </div>
-    <div class="control-group">
-      <label for="password" class="control-label" >Password:</label>
-      <div class="controls"><input id="password" type="password" ng-model="credentials.password"></div>
-    </div>
-    <div class="control-group">
-      <div class="controls">
-        <input type="submit" class="btn" value="submit">
-      </div>
-    </div>
-  </form>
+<form ng-submit="login()" ng-show="toggle" id="signin-form-id" class="form-signin">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <input ng-model="credentials.username" type="text" class="form-control" placeholder="Email address" autofocus>
+        <input ng-model="credentials.password" type="password" class="form-control" placeholder="Password">
+        <label class="checkbox">
+          <input type="checkbox" value="remember-me"> Remember me
+        </label>
+        <input type="submit" class="btn btn-lg btn-primary btn-block" value="Sign in">
+        <button type="button" class="btn btn-lg btn-block"  ng-model="toggle" btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">Register</button>   
+      </form>
+        
+      <form ng-hide="toggle" id="register-form-id" class="form-signin">
+        <h2 class="form-signin-heading">Registration</h2>
+        <input ng-model="user.email" type="text" class="form-control" placeholder="Email address" autofocus>
+        <input ng-model="user.password" type="password" class="form-control" placeholder="Password">
+        <button class="btn btn-lg btn-primary btn-block" ng-click="login()">Register</button>
+        <button type="button" class="btn btn-lg btn-block"  ng-model="toggle" btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">Sign in</button>
+      </form>
+</div>
 </div>
