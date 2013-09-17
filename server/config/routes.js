@@ -14,6 +14,33 @@ module.exports = function (app, config, pass) {
   app.get('/logout', user.logout);
 
   app.get('/user', pass.ensureAuthenticated, function(req, res, next) {
-    return res.json(req.session.user);
+    var dummy = {
+      username: 'bob',
+      email: 'bob@mail.com'
+    }
+    return res.json(dummy);
   });
+
+  /**
+   * payload: {
+   *   username: 'asd',
+   *   email: 'blub'
+   * }
+   */
+  app.put('/user', pass.ensureAuthenticated, function(req, res, next) {
+    //change user...
+  });
+
+  /**
+   * payload: {
+   *   username: 'ads',
+   *   email: 'ads',
+   *   password: 'asd'
+   * }
+   */
+  app.post('/user', function(req, res, next) {
+    // register
+    // send mail ...
+  })
+
 }
