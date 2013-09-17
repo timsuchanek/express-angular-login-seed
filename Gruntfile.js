@@ -288,8 +288,7 @@ module.exports = function(grunt) {
       server: [
         'coffee:dist',
         'compass:server',
-        'copy:styles',
-        'shell:mongod'
+        'copy:styles'
       ],
       test: [
         'coffee',
@@ -347,8 +346,6 @@ module.exports = function(grunt) {
     }
 
     grunt.task.run([
-      
-
       'clean:server',
       'concurrent:server',
       'autoprefixer',
