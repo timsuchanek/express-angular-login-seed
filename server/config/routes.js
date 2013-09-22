@@ -1,7 +1,7 @@
-module.exports = function (app, config, pass) {
+module.exports = function(app, config, pass) {
   var fs = require('fs'),
-      path = require('path'),
-      routes_path = path.resolve(config.root, 'routes');
+    path = require('path'),
+    routes_path = path.resolve(config.root, 'server/routes');
 
   // auto import all routes by calling this['prop'] = require....
   // slice(0,-3), because ".js" has to be sliced
@@ -20,6 +20,7 @@ module.exports = function (app, config, pass) {
     }
     return res.json(dummy);
   });
+
 
   /**
    * payload: {
@@ -41,6 +42,15 @@ module.exports = function (app, config, pass) {
   app.post('/user', function(req, res, next) {
     // register
     // send mail ...
-  })
+  });
+
+
+
+
+  app.all('/*', function(req, res, next) {
+    res.sendfile('index.html', {
+      root: __dirname + '../../../app'
+    });
+  });
 
 }
