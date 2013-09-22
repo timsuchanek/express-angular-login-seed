@@ -1,7 +1,7 @@
 // Generated on 2013-09-04 using generator-angular 0.4.0
 'use strict';
 var path = require('path');
-var LIVERELOAD_PORT = 35728;
+var LIVERELOAD_PORT = 35729;
 
 // # Globbing
 // for performance reasons we're only matching one level down:
