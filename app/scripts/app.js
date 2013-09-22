@@ -1,16 +1,16 @@
 'use strict';
 
 angular.module('generatorLoginApp', ['ui.router', 'ui.bootstrap'])
-  .config(function($stateProvider, $urlRouterProvider) {
+  .config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     $stateProvider
       .state('navbar', {
         abstract: true,
-        templateUrl: 'views/navbar.html',
+        templateUrl: 'views/secret/navbar.html',
         controller: 'MainCtrl'
       })
       .state('navbar.home', {
         url: '/',
-        templateUrl: 'views/main.html',
+        templateUrl: 'views/secret/main.html',
         controller: 'NavBarCtrl'
       })
       .state('login', {
@@ -20,9 +20,11 @@ angular.module('generatorLoginApp', ['ui.router', 'ui.bootstrap'])
       })
       .state('navbar.profile', {
         url: '/profile',
-        templateUrl: 'views/profile.html',
+        templateUrl: 'views/secret/profile.html',
         controller: 'ProfileCtrl'
       });
+
+    $locationProvider.html5Mode(true);
   })
   .config(function($httpProvider) {
     var logsOutUserOn401 = function($location, $q, $session) {
