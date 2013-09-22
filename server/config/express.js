@@ -6,6 +6,8 @@ var express = require('express'),
 
 module.exports = function (app, config, pass) {
   app.set('showStackError', true);
+  app.set('views', path.resolve(config.root, '/views'));
+  app.set('view engine', 'jade');
 
   app.configure(function() {
     app.use(express.logger('dev'));
@@ -37,15 +39,7 @@ module.exports = function (app, config, pass) {
     app.use(flash());
     app.use(passport.initialize());
     app.use(passport.session());
-    // register all secret views
-
-    app.use('/views/secret', pass.ensureAuthenticated, express.static(__dirname + '/../../views'));
-    app.use('/views', express.static(__dirname + '/../../views'));
-    app.use('/images', express.static(__dirname + '/../../app/images'));
-    app.use('/scripts', express.static(__dirname + '/../../app/scripts'));
-    app.use('/bower_components', express.static(__dirname + '/../../app/bower_components'));
-    app.use('/styles', express.static(__dirname + '/../../app/styles'));
-
+    app.use(express.static(__dirname + '/../../app'));
     app.use(app.router);
   });
 
