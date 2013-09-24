@@ -21,7 +21,8 @@ module.exports = function(grunt) {
   // configurable paths
   var yeomanConfig = {
     app: 'app',
-    dist: 'dist'
+    dist: 'dist',
+    views: 'views'
   };
 
   try {
@@ -30,35 +31,36 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     yeoman: yeomanConfig,
-    watch: {
-      coffee: {
-        files: ['<%= yeoman.app %>/scripts/{,*/}*.coffee'],
-        tasks: ['coffee:dist']
-      },
-      coffeeTest: {
-        files: ['test/spec/{,*/}*.coffee'],
-        tasks: ['coffee:test']
-      },
-      compass: {
-        files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
-        tasks: ['compass:server', 'autoprefixer']
-      },
-      styles: {
-        files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
-        tasks: ['copy:styles', 'autoprefixer']
-      },
-      livereload: {
-        options: {
-          livereload: LIVERELOAD_PORT
-        },
-        files: [
-          '<%= yeoman.app %>/{,*/}*.html',
-          '.tmp/styles/{,*/}*.css',
-          '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
-          '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
-        ]
-      }
-    },
+    // watch: {
+    //   coffee: {
+    //     files: ['<%= yeoman.app %>/scripts/{,*/}*.coffee'],
+    //     tasks: ['coffee:dist']
+    //   },
+    //   coffeeTest: {
+    //     files: ['test/spec/{,*/}*.coffee'],
+    //     tasks: ['coffee:test']
+    //   },
+    //   compass: {
+    //     files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
+    //     tasks: ['compass:server', 'autoprefixer']
+    //   },
+    //   styles: {
+    //     files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
+    //     tasks: ['copy:styles', 'autoprefixer']
+    //   }
+    //   // },
+    //   // livereload: {
+    //   //   options: {
+    //   //     livereload: LIVERELOAD_PORT
+    //   //   },
+    //   //   files: [
+    //   //     '<%= yeoman.app %>/{,*/}*.html',
+    //   //     '.tmp/styles/{,*/}*.css',
+    //   //     '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
+    //   //     '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+    //   //   ]
+    //   // }
+    // },
     autoprefixer: {
       options: ['last 1 version'],
       dist: {
@@ -78,10 +80,13 @@ module.exports = function(grunt) {
       livereload: {
         options: {
           server: path.resolve('./server'),
-          livereload: false,
-          serverreload: false,
-          bases: [path.resolve('./.tmp'), path.resolve(__dirname, yeomanConfig.app)],
-          showStack: true
+          livereload: true,
+        //  serverreload: true,
+          bases: [path.resolve('./.tmp'), path.resolve(__dirname, yeomanConfig.app),
+          path.resolve(__dirname, yeomanConfig.views)],
+          showStack: true,
+          open: true,
+          keepAlive: true
         }
       },
       test: {
@@ -304,8 +309,8 @@ module.exports = function(grunt) {
         'htmlmin'
       ],
       livereload: [
-        'express:livereload',
-        'watch'
+        'watch',
+        'express:livereload'
       ]
     },
     karma: {
@@ -349,11 +354,17 @@ module.exports = function(grunt) {
       'clean:server',
       'concurrent:server',
       'autoprefixer',
-      'express:livereload',
-      'watch',
-      'open'
+      'concurrent:livereload'
+      // 'express:livereload',
+      // 'open',
+      // 'watch'
     ]);
   });
+
+  grunt.registerTask('simpleserver', [
+    'express:livereload',
+    'express-keepalive'
+  ]);
 
   grunt.registerTask('test', [
     'clean:server',
