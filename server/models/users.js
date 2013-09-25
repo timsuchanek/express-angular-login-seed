@@ -23,6 +23,26 @@ var UserSchema = new mongoose.Schema({
   admin: {
     type: Boolean,
     required: true
+  },
+  street: {
+    type: String,
+    required: false
+  },
+  streetNumber: {
+    type: String,
+    required: false
+  }
+  country: {
+    type: String,
+    required: false
+  },
+  twitter: {
+    type: String,
+    required: false
+  },
+  facebook: {
+    type: String,
+    required: false
   }
 });
 
