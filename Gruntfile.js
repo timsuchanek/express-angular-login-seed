@@ -31,36 +31,36 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     yeoman: yeomanConfig,
-    // watch: {
-    //   coffee: {
-    //     files: ['<%= yeoman.app %>/scripts/{,*/}*.coffee'],
-    //     tasks: ['coffee:dist']
-    //   },
-    //   coffeeTest: {
-    //     files: ['test/spec/{,*/}*.coffee'],
-    //     tasks: ['coffee:test']
-    //   },
-    //   compass: {
-    //     files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
-    //     tasks: ['compass:server', 'autoprefixer']
-    //   },
-    //   styles: {
-    //     files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
-    //     tasks: ['copy:styles', 'autoprefixer']
-    //   }
-    //   // },
-    //   // livereload: {
-    //   //   options: {
-    //   //     livereload: LIVERELOAD_PORT
-    //   //   },
-    //   //   files: [
-    //   //     '<%= yeoman.app %>/{,*/}*.html',
-    //   //     '.tmp/styles/{,*/}*.css',
-    //   //     '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
-    //   //     '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
-    //   //   ]
-    //   // }
-    // },
+    watch: {
+      coffee: {
+        files: ['<%= yeoman.app %>/scripts/{,*/}*.coffee'],
+        tasks: ['coffee:dist']
+      },
+      coffeeTest: {
+        files: ['test/spec/{,*/}*.coffee'],
+        tasks: ['coffee:test']
+      },
+      compass: {
+        files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
+        tasks: ['compass:server', 'autoprefixer']
+      },
+      styles: {
+        files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
+        tasks: ['copy:styles', 'autoprefixer']
+      },
+      // },
+      livereload: {
+        options: {
+          livereload: LIVERELOAD_PORT
+        },
+        files: [
+          '<%= yeoman.app %>/{,*/}*.html',
+          '.tmp/styles/{,*/}*.css',
+          '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
+          '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+        ]
+      }
+    },
     autoprefixer: {
       options: ['last 1 version'],
       dist: {
@@ -80,12 +80,12 @@ module.exports = function(grunt) {
       livereload: {
         options: {
           server: path.resolve('./server'),
-          livereload: true,
+          // livereload: true,
         //  serverreload: true,
           bases: [path.resolve('./.tmp'), path.resolve(__dirname, yeomanConfig.app),
           path.resolve(__dirname, yeomanConfig.views)],
           showStack: true,
-          open: true,
+          // open: true,
           keepAlive: true
         }
       },
@@ -354,10 +354,10 @@ module.exports = function(grunt) {
       'clean:server',
       'concurrent:server',
       'autoprefixer',
-      'concurrent:livereload'
-      // 'express:livereload',
-      // 'open',
-      // 'watch'
+    //  'concurrent:livereload',
+      'express:livereload',
+      'open',
+      'watch'
     ]);
   });
 
@@ -425,7 +425,6 @@ module.exports = function(grunt) {
       }
       conn.connection.close();
     });
-
   });
 
   grunt.registerTask('dbdrop', 'drop the database', function() {

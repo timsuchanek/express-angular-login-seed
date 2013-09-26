@@ -31,7 +31,7 @@ var UserSchema = new mongoose.Schema({
   streetNumber: {
     type: String,
     required: false
-  }
+  },
   country: {
     type: String,
     required: false
