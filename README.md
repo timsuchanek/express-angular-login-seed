@@ -1,6 +1,11 @@
 express-angular-login-seed
 ===
-A seed project for a project using AngularJS, Express, Passport, Mongoose
+A seed project for a project using AngularJS, Express, Passport, Mongoose.
+
+## Features
+ - Grunt Task for server with Client/Serverside reload
+ - Clean app structure
+ - Unopiniated
 
 Authors
 ===
