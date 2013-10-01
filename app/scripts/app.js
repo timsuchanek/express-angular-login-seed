@@ -1,18 +1,18 @@
 'use strict';
 
 angular.module('generatorLoginApp', ['ui.router', 'ui.bootstrap'])
-  .config(function ($stateProvider,  $urlRouterProvider) {      
+  .config(function($stateProvider, $urlRouterProvider, $locationProvider) {
     $stateProvider
-    .state('navbar', {
-        abstract: true,  
-        templateUrl: 'views/navbar.html',
+      .state('navbar', {
+        abstract: true,
+        templateUrl: 'views/secret/navbar.html',
         controller: 'MainCtrl'
       })
       .state('navbar.home', {
-        url: '/', 
-        templateUrl: 'views/main.html',
+        url: '/',
+        templateUrl: 'views/secret/main.html',
         controller: 'NavBarCtrl'
-      })      
+      })
       .state('login', {
         url: '/login',
         templateUrl: 'views/login.html',
@@ -20,9 +20,11 @@ angular.module('generatorLoginApp', ['ui.router', 'ui.bootstrap'])
       })
       .state('navbar.profile', {
         url: '/profile',
-        templateUrl: 'views/profile.html',
+        templateUrl: 'views/secret/profile.html',
         controller: 'ProfileCtrl'
       });
+
+    $locationProvider.html5Mode(true);
   })
   .config(function($httpProvider) {
     var logsOutUserOn401 = function($location, $q, $session) {
@@ -48,7 +50,7 @@ angular.module('generatorLoginApp', ['ui.router', 'ui.bootstrap'])
     $httpProvider.responseInterceptors.push(logsOutUserOn401);
   })
   .run(function($rootScope, $location, AuthenticationService) {
-    $rootScope.logout = function () {
+    $rootScope.logout = function() {
       var logout = AuthenticationService.logout();
       logout.then(function() {
         $location.path('/login');
@@ -70,4 +72,5 @@ angular.module('generatorLoginApp', ['ui.router', 'ui.bootstrap'])
       function ($rootScope,   $state,   $stateParams) {
         $rootScope.$state = $state;
         $rootScope.$stateParams = $stateParams;
-      }]);;
+      }
+    ]);;

@@ -1,0 +1,24 @@
+<div class="container">
+  <div id="flash" class="alert-box alert" ng-show="flash">{{ flash }}</div>
+
+  <form ng-submit="login()" ng-show="toggle" id="signin-form-id" class="form-signin">
+    <h2 class="form-signin-heading">Please sign in</h2>
+    <input ng-model="credentials.username" type="text" class="form-control" placeholder="Username" autofocus>
+    <input ng-model="credentials.password" type="password" class="form-control" placeholder="Password">
+    <label class="checkbox">
+      <input type="checkbox" value="remember-me"> Remember me
+    </label>
+    <input type="submit" class="btn btn-lg btn-primary btn-block" value="Sign in">
+    <button type="button" class="btn btn-lg btn-block"  ng-model="toggle" btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">Register</button>
+    <p><br><b>Hint:</b> If there is no user in the db, you can use <pre>grunt dbseed</pre><br>
+      to create <b>admin:secret</b> and <b>bob:secret</b></p>
+  </form>
+
+  <form ng-hide="toggle" id="register-form-id" class="form-signin">
+    <h2 class="form-signin-heading">Registration</h2>
+    <input ng-model="user.email" type="text" class="form-control" placeholder="Username" autofocus>
+    <input ng-model="user.password" type="password" class="form-control" placeholder="Password">
+    <button class="btn btn-lg btn-primary btn-block" ng-click="login()">Register</button>
+    <button type="button" class="btn btn-lg btn-block"  ng-model="toggle" btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">Sign in</button>
+  </form>
+</div>

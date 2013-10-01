@@ -1,7 +1,7 @@
 // Generated on 2013-09-04 using generator-angular 0.4.0
 'use strict';
 var path = require('path');
-var LIVERELOAD_PORT = 35728;
+var LIVERELOAD_PORT = 35729;
 
 // # Globbing
 // for performance reasons we're only matching one level down:
@@ -21,7 +21,8 @@ module.exports = function(grunt) {
   // configurable paths
   var yeomanConfig = {
     app: 'app',
-    dist: 'dist'
+    dist: 'dist',
+    views: 'views'
   };
 
   try {
@@ -30,11 +31,6 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     yeoman: yeomanConfig,
-    exec: {
-      mongo: {
-        cmd: 'mongod'
-      }
-    },
     watch: {
       coffee: {
         files: ['<%= yeoman.app %>/scripts/{,*/}*.coffee'],
@@ -52,6 +48,7 @@ module.exports = function(grunt) {
         files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
         tasks: ['copy:styles', 'autoprefixer']
       },
+      // },
       livereload: {
         options: {
           livereload: LIVERELOAD_PORT
@@ -83,10 +80,13 @@ module.exports = function(grunt) {
       livereload: {
         options: {
           server: path.resolve('./server'),
-          livereload: true,
-          serverreload: true,
-          bases: [path.resolve('./.tmp'), path.resolve(__dirname, yeomanConfig.app)],
-          showStack: true
+          // livereload: true,
+        //  serverreload: true,
+          bases: [path.resolve('./.tmp'), path.resolve(__dirname, yeomanConfig.app),
+          path.resolve(__dirname, yeomanConfig.views)],
+          showStack: true,
+          // open: true,
+          keepAlive: true
         }
       },
       test: {
@@ -309,8 +309,8 @@ module.exports = function(grunt) {
         'htmlmin'
       ],
       livereload: [
-        'express:livereload',
-        'watch'
+        'watch',
+        'express:livereload'
       ]
     },
     karma: {
@@ -351,17 +351,20 @@ module.exports = function(grunt) {
     }
 
     grunt.task.run([
-      
       'clean:server',
       'concurrent:server',
       'autoprefixer',
+    //  'concurrent:livereload',
       'express:livereload',
-      'watch',
-
-      // 'concurrent:livereload',
-      'open'
+      'open',
+      'watch'
     ]);
   });
+
+  grunt.registerTask('simpleserver', [
+    'express:livereload',
+    'express-keepalive'
+  ]);
 
   grunt.registerTask('test', [
     'clean:server',
@@ -401,7 +404,6 @@ module.exports = function(grunt) {
     // convert adm string to bool
     adm = (adm === 'true');
 
-
     var conn = mongoose.connect(config.db);
     // save call is async, put grunt into async mode to work
     var done = this.async();
@@ -423,7 +425,6 @@ module.exports = function(grunt) {
       }
       conn.connection.close();
     });
-
   });
 
   grunt.registerTask('dbdrop', 'drop the database', function() {
