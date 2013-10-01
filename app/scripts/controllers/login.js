@@ -10,4 +10,8 @@ angular.module('generatorLoginApp')
         $location.path('/'); // TODO: route back to where user was coming from (before login page)
       });
     };
+
+    $scope.registration = function () {
+
+    };
   });

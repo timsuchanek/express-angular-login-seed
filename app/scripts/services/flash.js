@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('generatorLoginApp')
-     .service('$flash', function($rootScope) {
+  .service('$flash', function($rootScope) {
     this.show = function(message) {
       $rootScope.flash = message;
     };
