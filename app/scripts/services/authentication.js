@@ -1,15 +1,13 @@
 'use strict';
 
 angular.module('generatorLoginApp')
-   .service('AuthenticationService', function($http, $timeout, $q, $session, $flash) {
+   .service('AuthenticationService', function($http, $timeout, $q, $session) {
     this.login = function(credentials) {
       var login = $http.post('/login', credentials);
       login.success(function(user) {
         $session.set('user', user);
-        $flash.clear();
       }).error(function(error) {
         error = error.error ? error.error : error;
-        $flash.show(error.message || error);
       });
       return login;
     };
