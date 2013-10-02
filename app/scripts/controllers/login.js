@@ -16,6 +16,6 @@ angular.module('generatorLoginApp')
     };
 
     $scope.registration = function () {
-
+      AuthenticationService.registration(this.newUser);
     };
   });

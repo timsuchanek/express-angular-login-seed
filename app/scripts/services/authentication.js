@@ -32,4 +32,16 @@ angular.module('generatorLoginApp')
         return $http.get('/user');
       }
     };
+
+    this.registration = function(newUser) {
+      var registration = $http.post('/user', newUser);
+      registration.success(function(user) {
+        //login(user);
+
+      }).error(function(error) {
+        // TODO error handling
+        console.log("lala");
+      });
+
+    };
   });
