@@ -38,11 +38,13 @@ var UserSchema = new mongoose.Schema({
   },
   twitter: {
     type: String,
-    required: false
+    required: false,
+    unique: true
   },
   facebook: {
     type: String,
-    required: false
+    required: false,
+    unique: true
   }
 });
 
