@@ -1,10 +1,11 @@
 <div class="container">
   <div id="flash" class="alert-box alert" ng-show="flash">{{ flash }}</div>
 
-  <form ng-submit="login()" ng-show="toggle" id="signin_form_id" class="form-signin">
+  <form ng-submit="login()" ng-show="toggle" name="signin_form" id="signin_form_id" class="form-signin" novalidate>
     <h2 class="form-signin-heading">Please sign in</h2>
     <div class="row form-signin">
-      <input ng-model="credentials.username" type="text" class="form-control" placeholder="Username" autofocus>
+      <input ng-model="credentials.username" type="text" class="form-control" placeholder="Username" autofocus required>
+      <span class="error" ng-show="signin_form.$error.required">Required!</span>
     </div>
     <div class="row form-signin">
       <input ng-model="credentials.password" type="password" class="form-control" placeholder="Password">
@@ -12,7 +13,7 @@
     <label class="checkbox">
       <input type="checkbox" value="remember-me"> Remember me
     </label>
-    <input type="submit" class="btn btn-lg btn-primary btn-block" value="Sign in">
+    <input type="submit" class="btn btn-lg btn-primary btn-block" ng-disabled="!signin_form.$valid" value="Sign in">
     <button type="button" class="btn btn-lg btn-block"  ng-model="toggle" btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">Register</button>
     <p><br><b>Hint:</b> If there is no user in the db, you can use <pre>grunt dbseed</pre><br>
       to create <b>admin:secret</b> and <b>bob:secret</b></p>
