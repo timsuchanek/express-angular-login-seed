@@ -47,19 +47,19 @@ module.exports = function(grunt) {
       styles: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
         tasks: ['copy:styles', 'autoprefixer']
-      },
-      // },
-      livereload: {
-        options: {
-          livereload: LIVERELOAD_PORT
-        },
-        files: [
-          '<%= yeoman.app %>/{,*/}*.html',
-          '.tmp/styles/{,*/}*.css',
-          '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
-          '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
-        ]
       }
+      // },
+      // livereload: {
+      //   options: {
+      //     livereload: LIVERELOAD_PORT
+      //   },
+      //   files: [
+      //     '<%= yeoman.app %>/{,*/}*.html',
+      //     '.tmp/styles/{,*/}*.css',
+      //     '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
+      //     '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+      //   ]
+      // }
     },
     autoprefixer: {
       options: ['last 1 version'],
@@ -80,13 +80,12 @@ module.exports = function(grunt) {
       livereload: {
         options: {
           server: path.resolve('./server'),
-          // livereload: true,
-        //  serverreload: true,
+          livereload: true,
+          serverreload: true,
           bases: [path.resolve('./.tmp'), path.resolve(__dirname, yeomanConfig.app),
           path.resolve(__dirname, yeomanConfig.views)],
-          showStack: true,
+          showStack: true
           // open: true,
-          keepAlive: true
         }
       },
       test: {
@@ -308,10 +307,15 @@ module.exports = function(grunt) {
         'svgmin',
         'htmlmin'
       ],
-      livereload: [
-        'watch',
-        'express:livereload'
-      ]
+      livereload: {
+        options: {
+          logConcurrentOutput: true
+        },
+        tasks: [
+          'watch',
+          'express:livereload'
+        ]
+      }
     },
     karma: {
       unit: {
@@ -354,10 +358,10 @@ module.exports = function(grunt) {
       'clean:server',
       'concurrent:server',
       'autoprefixer',
-    //  'concurrent:livereload',
-      'express:livereload',
-      'open',
-      'watch'
+      'concurrent:livereload',
+    //  'express:livereload',
+      'open'
+     // 'watch'
     ]);
   });
 
