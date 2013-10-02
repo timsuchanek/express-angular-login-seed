@@ -1,4 +1,7 @@
-var passport = require('passport');
+var passport = require('passport')
+  , mongoose = require('mongoose')
+  , _ = require('lodash')
+  , User = require('../models/users');
 
 exports.account = function(req, res) {
   res.render('account', {
@@ -41,3 +44,28 @@ exports.logout = function(req, res) {
   res.redirect('/');
 };
 
+
+/**
+ * payload: {
+ *   username: 'ads',
+ *   email: 'ads',
+ *   password: 'asd'
+ * }
+ */
+
+exports.register = function(req, res, next) {
+    var defaultSettings = {
+      admin: false
+    };
+
+    var user = _.extend(defaultSettings, req.body);
+    user = new User(user);
+
+    user.save(function (err, newUser) {
+      if (err) res.error(err);
+      res.send({
+        message: 'User created successfully! Now we just need to implement mail ;)'
+      });
+    });
+    // send mail ...
+}

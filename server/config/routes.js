@@ -2,7 +2,8 @@ module.exports = function(app, config, pass) {
   var fs = require('fs'),
     path = require('path'),
     routes_path = path.resolve(config.root, 'server/routes'),
-    mongoose = require('mongoose');
+    mongoose = require('mongoose'),
+    User =  mongoose.model('User');
 
   // auto import all routes by calling this['prop'] = require....
   // slice(0,-3), because ".js" has to be sliced
@@ -40,17 +41,7 @@ module.exports = function(app, config, pass) {
    *   password: 'asd'
    * }
    */
-  app.post('/user', function(req, res, next) {
-    // register
-    var User = mongoose.model('User');
-    var user = new User(req.body);
-    user.save(function (err) {
-      console.log('Could not save user ' + user.username);
-      console.log(err);
-    });
-    res.json(true);
-    // send mail ...
-  });
+  app.post('/user', user.register);
 
 
 
