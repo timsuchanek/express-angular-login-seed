@@ -6,6 +6,7 @@ A seed project for a project using AngularJS, Express, Passport, Mongoose.
  - Grunt Task for server with Client/Serverside reload
  - Clean app structure
  - Unopiniated
+ - Clean Rest API
 
 Authors
 ===
