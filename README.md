@@ -7,6 +7,13 @@ A seed project for a project using AngularJS, Express, Passport, Mongoose.
  - Clean app structure
  - Unopiniated
  - Clean Rest API
+ - Using bcrypt for storing data, see this paper: [Use BCrupt Fool!](http://yorickpeterse.com/articles/use-bcrypt-fool/)
+
+## Todo
+ - Adding Jade
+ - Coffescript Version of everything
+ - Mail after register
+
 
 Authors
 ===
