@@ -18,5 +18,5 @@ configExpress(app, config, configPassport);
 configRoutes(app, config, configPassport);
 
 // for grunt-express usage,
-// app.listen is forbidden in this case!
-module.exports = app;
+app.listen(9000); //is forbidden in this case!
+// module.exports = app;
