@@ -1,5 +1,14 @@
-express-angular-login-seed
-===
+# This project is obsolete!
+  There is a much better solution made by the guys from linnovate:
+  [MEAN from Linnovate](https://github.com/linnovate/mean)
+
+
+##
+##
+##
+
+## ~~express-angular-login-seed~~
+
 A seed project for a project using AngularJS, Express, Passport, Mongoose.
 
 ## Features
